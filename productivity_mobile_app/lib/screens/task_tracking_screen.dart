@@ -1,17 +1,67 @@
 import 'package:flutter/material.dart';
+import '../models/task.dart';
 
-class TaskTrackingScreen extends StatelessWidget {
+class TaskTrackingScreen extends StatefulWidget {
+  @override
+  _TaskTrackingScreenState createState() => _TaskTrackingScreenState();
+}
+
+class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
+  List<Task> tasks = [
+    // Exemplo de tarefas
+    Task(
+        id: '1',
+        title: 'Tarefa Importante 1',
+        description: 'Descrição da Tarefa 1',
+        isCompleted: false),
+    Task(
+        id: '2',
+        title: 'Tarefa Importante 2',
+        description: 'Descrição da Tarefa 2',
+        isCompleted: true),
+    // Adicione mais tarefas aqui
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task Tracking'),
+        title: Text('Rastreamento de Tarefas'),
       ),
-      body: ListView(
-        children: <Widget>[
-          // Implemente uma lista de tarefas aqui
-        ],
+      body: ListView.builder(
+        itemCount: tasks.length,
+        itemBuilder: (context, index) {
+          return TaskTile(
+            task: tasks[index],
+            onChanged: (bool? newValue) {
+              setState(() {
+                tasks[index].isCompleted = newValue ?? false;
+              });
+            },
+          );
+        },
       ),
+    );
+  }
+}
+
+class TaskTile extends StatelessWidget {
+  final Task task;
+  final ValueChanged<bool?> onChanged;
+
+  const TaskTile({Key? key, required this.task, required this.onChanged})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(task.title),
+      subtitle: Text(task.description), // Adicionando a descrição
+      leading: Checkbox(
+        value: task.isCompleted,
+        onChanged: onChanged,
+      ),
+      // Adicione mais elementos de design conforme necessário
     );
   }
 }

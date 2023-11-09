@@ -1,16 +1,44 @@
 import 'package:flutter/material.dart';
+import '../widgets/progress_indicator.dart';
+import '../widgets/task_tile.dart';
+import '../models/task.dart';
 
 class HomeScreen extends StatelessWidget {
+  final List<Task> featuredTasks = [
+    // Exemplo de tarefas em destaque
+    Task(
+        id: '1',
+        title: 'Tarefa Importante 1',
+        description: 'Descrição da Tarefa 1',
+        isCompleted: false),
+    Task(
+        id: '2',
+        title: 'Tarefa Importante 2',
+        description: 'Descrição da Tarefa 2',
+        isCompleted: true),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Página Inicial'),
       ),
       body: Column(
-        children: <Widget>[
-          // Widget para o progresso diário
-          // Widget para listar tarefas em destaque
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child:
+                CustomProgressIndicator(),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: featuredTasks.length,
+              itemBuilder: (context, index) {
+                return TaskTile(task: featuredTasks[index]);
+              },
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -28,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             label: 'School',
           ),
         ],
-        // Implement navigation logic
+        // Configurações adicionais para o BottomNavigationBar
       ),
     );
   }
