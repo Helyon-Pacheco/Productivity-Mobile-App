@@ -19,7 +19,6 @@ class _TaskTrackingScreenState extends State<TaskTrackingScreen> {
         title: 'Tarefa Importante 2',
         description: 'Descrição da Tarefa 2',
         isCompleted: true),
-    // Adicione mais tarefas aqui
   ];
 
   @override
@@ -56,12 +55,11 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(task.title),
-      subtitle: Text(task.description), // Adicionando a descrição
+      subtitle: Text(task.description), // Exibindo a descrição da tarefa
       leading: Checkbox(
         value: task.isCompleted,
         onChanged: onChanged,
       ),
-      // Adicione mais elementos de design conforme necessário
     );
   }
 }

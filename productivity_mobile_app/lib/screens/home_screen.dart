@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import '../widgets/progress_indicator.dart';
 import '../widgets/task_tile.dart';
 import '../models/task.dart';
+import '../models/user.dart'; // Importe a classe User
 
 class HomeScreen extends StatelessWidget {
+  final User user; // Adicione um campo para o usuário
   final List<Task> featuredTasks = [
     // Exemplo de tarefas em destaque
     Task(
@@ -18,18 +20,20 @@ class HomeScreen extends StatelessWidget {
         isCompleted: true),
   ];
 
+  // Adicione um construtor para receber o usuário
+  HomeScreen({Key? key, required this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Página Inicial'),
+        title: Text('Bem-vindo, ${user.name}'), // Exiba o nome do usuário
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:
-                CustomProgressIndicator(),
+            child: CustomProgressIndicator(),
           ),
           Expanded(
             child: ListView.builder(
@@ -43,20 +47,11 @@ class HomeScreen extends StatelessWidget {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
-          ),
+              icon: Icon(Icons.business), label: 'Business'),
+          BottomNavigationBarItem(icon: Icon(Icons.school), label: 'School'),
         ],
-        // Configurações adicionais para o BottomNavigationBar
       ),
     );
   }

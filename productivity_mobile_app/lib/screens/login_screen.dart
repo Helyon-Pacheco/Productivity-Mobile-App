@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,12 +15,24 @@ class _LoginScreenState extends State<LoginScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
+    // Simulando uma autenticação bem-sucedida
     bool isAuthenticated =
         (email == 'user@example.com' && password == 'password123');
 
     if (isAuthenticated) {
-      // Se autenticado, navegue para a próxima tela (por exemplo, a tela inicial)
-      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
+      // Criando um usuário fictício após a autenticação
+      User user = User(
+        id: '1',
+        name: 'John Doe',
+        email: email,
+        password: password,
+        profileImageUrl: 'https://example.com/profile.jpg',
+      );
+
+      // Navegando para a tela inicial com o usuário autenticado
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => HomeScreen(user: user)),
+      );
     } else {
       // Se não autenticado, mostre uma mensagem de erro
       showDialog(
